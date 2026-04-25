@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -9,3 +10,4 @@ Route::get('/', function () {
 });
 
 Route::get('/students', [StudentController::class, 'index'])->name('students');
+Route::get('/buses', [BusController::class, 'index'])->name('buses');
