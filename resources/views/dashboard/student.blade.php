@@ -4,12 +4,13 @@
 
 @section('content')
     <div>
-        <h2 class="text-3xl font-bold my-7">Welcome, {{ $student->name}}!</h2>
+        <h2 class="text-3xl font-bold mt-13">Welcome, {{ $student->name}}!</h2>
     </div>
-    <h2 class="text-2xl font-bold">Available Buses</h2>
-    @if($buses->count() > 0)
-        <div class="overflow-x-auto mt-5 rounded-lg">
-            <table class="min-w-full bg-white border border-gray-200 shadow-sm">
+    
+    <div class="overflow-x-auto mt-9 p-5 rounded-lg bg-white">
+        <h2 class="text-2xl font-bold">Available Buses</h2>
+        @if($buses->count() > 0)
+            <table class="min-w-full bg-white mt-5">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Bus ID</th>
@@ -26,21 +27,20 @@
                             <td class="px-4 py-2 text-sm text-gray-800">{{ $bus->id }}</td>
                             <td class="px-4 py-2 text-sm text-gray-800">{{ $bus->capacity }}</td>
                             <td class="px-4 py-2 text-sm text-gray-800">{{ $bus->route_name }}</td>
-                            <td class="px-4 py-2 text-sm text-gray-800">{{ $bus->ds_id }}</td>
+                            <td class="px-4 py-2 text-sm text-gray-800">{{ $bus->ds_id ? $bus->ds_id : 'N/A'}}</td>
                             <td class="px-4 py-2 text-sm text-gray-800"><button class="bg-green-300 hover:bg-green-400 active:scale-95 transition-all px-5 py-2 rounded-sm cursor-pointer font-medium">Book</button></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-    @else
-        <p class="text-2xl flex items-center justify-center">No Buses Available!</p>
-    @endif
-    <div class="mt-10 max-w-xl">
-    
-        <h2 class="text-2xl font-bold mb-5">Give Feedback!</h2>
+        @else
+            <p class="mt-5 text-2xl flex items-center justify-center">No Buses Available!</p>
+        @endif
+    </div>
 
-        <form class="space-y-5 bg-white p-6 rounded-sm" method="POST" action="{{ route('feedback.store') }}">
+    <div class="overflow-x-auto mt-9 p-5 rounded-lg bg-white max-w-2xl">
+        <h2 class="text-2xl font-bold mb-5">Give Feedback!</h2>
+        <form class="space-y-5 bg-white rounded-sm" method="POST" action="{{ route('feedback.store') }}">
             @csrf
             <input type="hidden" name="user_id" value="{{ $student->id }}">
             <!-- Name -->
@@ -56,7 +56,6 @@
                 >
             </div>
 
-            <!-- Message -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Message
@@ -69,14 +68,12 @@
                 ></textarea>
             </div>
 
-            <!-- Button -->
             <button
                 type="submit"
-                class="bg-blue-500 hover:bg-blue-600 active:scale-95 transition-all text-white font-medium py-2 px-6 rounded-md"
+                class="bg-blue-500 hover:bg-blue-600 active:scale-95 transition-all text-white font-medium py-2 px-6 rounded-md cursor-pointer w-full"
             >
                 Submit
             </button>
-
         </form>
     </div>
 @endsection
