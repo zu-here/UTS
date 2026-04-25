@@ -6,12 +6,13 @@
     @vite(['resources/css/app.css'])
     <title>@yield('title', 'Dashboard')</title>
 </head>
-<body class="bg-gray-100 p-4">
-    <nav class="bg-white shadow-sm px-6 py-4">
+<body>
+    <div class="bg-gray-100 p-4 max-w-screen-2xl mx-auto">
+        <nav class="bg-white shadow-sm px-6 py-4">
         <div class="mx-auto flex items-center justify-between">
-            
+                
             <!-- Logo -->
-            <div class="text-3xl font-bold tracking-tight">
+            <div class="text-4xl font-bold tracking-tight">
             UTS
             </div>
 
@@ -23,10 +24,11 @@
             </div>
 
         </div>
-    </nav>
+        </nav>
 
-    <div class="content">
-        @yield('content')
+        <div class="content">
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>
