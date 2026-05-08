@@ -25,6 +25,14 @@
             Users
         </button>
 
+        <button 
+            @click="tab = 'feedbacks'" 
+            :class="tab === 'feedbacks' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'"
+            class="px-4 py-2 font-medium"
+        >
+            Feedbacks
+        </button>
+
         <button @click="tab = 'statistics'"
             :class="tab === 'statistics' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'"
             class="px-4 py-2 font-medium">Statistics</button>
@@ -184,6 +192,67 @@
         </div>
     </div>
 
+    <div x-show="tab === 'feedbacks'" class="mt-6">
+
+    <div class="bg-white rounded-lg p-5">
+
+        <h2 class="text-2xl font-bold mb-5">
+            Student Feedbacks
+        </h2>
+
+        @if($feedbacks->count() > 0)
+
+            <table class="min-w-full bg-white">
+
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left">Student ID</th>
+                        <th class="px-4 py-3 text-left">Name</th>
+                        <th class="px-4 py-3 text-left">Message</th>
+                        <th class="px-4 py-3 text-left">Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach($feedbacks as $feedback)
+
+                        <tr class="hover:bg-gray-50">
+
+                            <td class="px-4 py-2">
+                                {{ $feedback->user_id }}
+                            </td>
+
+                            <td class="px-4 py-2">
+                                {{ $feedback->name }}
+                            </td>
+
+                            <td class="px-4 py-2">
+                                {{ $feedback->message }}
+                            </td>
+
+                            <td class="px-4 py-2">
+                                {{ $feedback->created_at->format('d M Y h:i A') }}
+                            </td>
+
+                        </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
+        @else
+
+            <p>No feedbacks yet.</p>
+
+        @endif
+
+    </div>
+
+</div>
+
     <!-- STATISTICS -->
     <div x-show="tab === 'statistics'" class="mt-6">
         <div class="p-5 bg-white rounded-lg">
@@ -207,7 +276,7 @@
 
                 <div class="bg-purple-100 p-4 rounded-lg text-center">
                     <h3 class="text-lg font-semibold">Bookings</h3>
-                    
+                    <p class="text-2xl font-bold">{{ $bookings->count() }}</p>
                 </div>
             </div>
         </div>

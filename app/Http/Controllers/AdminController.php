@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Bus;
 use App\Models\Route;
 use App\Models\User;
+use App\Models\Booking;
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,11 +17,13 @@ class AdminController extends Controller
         $routes = Route::all();
         $buses = Bus::with(['route', 'driver'])->get(); // 🔥 better
         $users = User::all();
+        $bookings = Booking::all();
+        $feedbacks = Feedback::all();
 
         $drivers = User::where('role', 'driver')
             ->whereDoesntHave('bus')
             ->get();
 
-        return view('dashboard.admin', compact('routes', 'buses', 'users', 'drivers'));
+        return view('dashboard.admin', compact('routes', 'buses', 'users', 'drivers', 'bookings', 'feedbacks'));
     }
 }
