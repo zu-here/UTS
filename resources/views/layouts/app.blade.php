@@ -22,9 +22,16 @@
 
                 <!-- Actions -->
                 <div>
-                <button class="bg-red-400 hover:bg-red-500 active:scale-95 transition-all duration-150 py-2 px-5 rounded-lg text-white font-medium cursor-pointer">
-                    Logout
-                </button>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <button
+                            type="submit"
+                            class="bg-red-500 text-white px-4 py-2 rounded"
+                        >
+                            Logout
+                        </button>
+                    </form>
                 </div>
 
             </div>

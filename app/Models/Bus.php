@@ -17,6 +17,8 @@ class Bus extends Model
         'id',
         'route_id',
         'capacity',
+        'sitting_capacity',
+        'available_capacity',
         'ds_id'
     ];
 
@@ -28,6 +30,11 @@ class Bus extends Model
     public function driver()
     {
         return $this->belongsTo(\App\Models\User::class, 'ds_id', 'id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 
 }

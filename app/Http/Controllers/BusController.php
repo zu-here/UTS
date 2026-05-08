@@ -44,6 +44,8 @@ class BusController extends Controller
         Bus::create([
             'id' => $request->id,
             'capacity' => $request->capacity,
+            'sitting_capacity' => $request->sitting_capacity,
+            'available_capacity' => $request->capacity,
             'route_id' => $request->route_id,
             'ds_id' => $request->ds_id,
         ]);

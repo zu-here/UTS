@@ -31,8 +31,8 @@ class UserController extends Controller
             'location' => $request->location,
             'subsidy' => $request->subsidy,
             'role' => $request->role,
-            'is_active',
-            'is_available'
+            'is_active' => 1,
+            'is_available' => 1
         ]);
 
         // dd($user);

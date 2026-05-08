@@ -294,6 +294,15 @@
                     <input type="number" name="capacity" class="w-full border px-3 py-2 rounded" placeholder="30">
                 </div>
 
+                <div class="mb-3">
+                    <label class="block text-sm">Sitting Capacity</label>
+                    <input
+                        type="number"
+                        name="sitting_capacity"
+                        class="w-full border px-3 py-2 rounded"
+                        placeholder="10">
+                </div>
+
                 <!-- Route -->
                 <div class="mb-3">
                     <label class="block text-sm">Route</label>

@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Models\Bus::class, 'ds_id', 'id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

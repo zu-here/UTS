@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\StudentController;
@@ -13,9 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 // Route::get('/students', [StudentController::class, 'index'])->name('students');
 // Route::get('/buses', [BusController::class, 'index'])->name('buses');
+
 Route::get('/student/{id}/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard.student');
+Route::post('/student/{id}/book/{bus}', [BookingController::class, 'store'])->name('bus.book');
+Route::delete('/student/{id}/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.cancel');    
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('dashboard.admin');
