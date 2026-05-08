@@ -45,9 +45,13 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
+            'id' => 'USR-' . time() . '-' . rand(100, 999), // Generating a string ID
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'department' => 'Staff', // Default for Driver/Staff dashboard
+            'location' => 'University',
+            'subsidy' => false,
         ]);
 
         Auth::login($user);
