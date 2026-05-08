@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bus;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
@@ -14,8 +15,9 @@ class BusController extends Controller
     {
         //
         $buses = Bus::all();
+        $drivers = User::where('role', 'driver')->get();
 
-        return view('buses.index', compact('buses'));
+        return view('buses.index', compact('buses', 'drivers'));
     }
 
     /**
@@ -32,6 +34,21 @@ class BusController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'id' => 'required|string|max:20|unique:buses,id',
+            'capacity' => 'required|integer|min:1',
+            'route_id' => 'required|exists:routes,id',
+            'ds_id' => 'nullable|exists:users,id',
+        ]);
+
+        Bus::create([
+            'id' => $request->id,
+            'capacity' => $request->capacity,
+            'route_id' => $request->route_id,
+            'ds_id' => $request->ds_id,
+        ]);
+
+        return back()->with('success', 'Bus added successfully!');
     }
 
     /**

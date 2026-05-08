@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Route;
 
 class Bus extends Model
 {
@@ -11,4 +12,22 @@ class Bus extends Model
 
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'id',
+        'route_id',
+        'capacity',
+        'ds_id'
+    ];
+
+    public function route()
+    {
+        return $this->belongsTo(\App\Models\Route::class, 'route_id');
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'ds_id', 'id');
+    }
+
 }

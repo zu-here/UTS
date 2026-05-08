@@ -19,14 +19,19 @@ class User extends Authenticatable
      * @var list<string>
      */
 
-    public $incrementing = false;
-    protected $keyType = 'string';
-
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'department',
+        'location',
+        'subsidy',
+        'role'
     ];
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,5 +54,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function bus()
+    {
+        return $this->hasOne(\App\Models\Bus::class, 'ds_id', 'id');
     }
 }
