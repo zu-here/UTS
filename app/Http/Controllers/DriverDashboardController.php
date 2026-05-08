@@ -14,22 +14,22 @@ class DriverDashboardController extends Controller
     public function index()
     {
         // For simplicity, we assume driver is assigned to the first bus in their table
-        // Since they use string IDs like 'B-01', we use firstOrCreate with a sample string if empty
         $bus = Bus::firstOrCreate(['id' => 'B-01'], [
             'capacity' => 40,
             'route_name' => 'Main Route',
             'ds_id' => 'DS-01'
         ]);
 
-        $fuelLogs = FuelLog::where('bus_id', $bus->id)->latest()->take(5)->get();
-        $expenses = ExpenseRequest::where('bus_id', $bus->id)->latest()->take(5)->get();
+        // Filter summary by the logged-in user
+        $fuelLogs = FuelLog::where('user_id', Auth::id())->latest()->take(5)->get();
+        $expenses = ExpenseRequest::where('user_id', Auth::id())->latest()->take(5)->get();
         
         return view('driver.dashboard', compact('bus', 'fuelLogs', 'expenses'));
     }
 
     public function updateStatus(Request $request)
     {
-        $bus = Bus::first(); // Still assuming first bus for simplicity
+        $bus = Bus::first();
         $bus->update([
             'seat_status' => $request->seat_status,
             'payment_method' => $request->payment_method
@@ -50,6 +50,7 @@ class DriverDashboardController extends Controller
 
         FuelLog::create([
             'bus_id' => $bus->id,
+            'user_id' => Auth::id(), // Record who did this
             'amount_liters' => $request->amount_liters,
             'cost' => $request->cost,
             'refuel_date' => $request->refuel_date,
@@ -69,6 +70,7 @@ class DriverDashboardController extends Controller
 
         ExpenseRequest::create([
             'bus_id' => $bus->id,
+            'user_id' => Auth::id(), // Record who did this
             'item_name' => $request->item_name,
             'description' => $request->description,
             'estimated_cost' => $request->estimated_cost,

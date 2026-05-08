@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ExpenseRequest extends Model
 {
     use HasFactory;
-    protected $fillable = ['bus_id', 'item_name', 'description', 'estimated_cost', 'status'];
+    protected $fillable = ['bus_id', 'user_id', 'item_name', 'description', 'estimated_cost', 'status'];
 }
